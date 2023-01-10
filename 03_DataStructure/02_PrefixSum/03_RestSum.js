@@ -7,8 +7,8 @@ let answer = 0;
 const numArr = lines[1].trim().split(` `).map(Number);
 let sumArr = Array.from(Array(N).fill(0));
 
-for(let idx = 0; idx < N; idx++) {
-    sumArr[idx+1] = sumArr[idx] + numArr[idx];
+for (let idx = 0; idx < N; idx++) {
+    sumArr[idx + 1] = sumArr[idx] + numArr[idx];
 }
 
 answer = sumArr.map(sum => sum % M).filter(rest => 0 === rest);

@@ -19,7 +19,7 @@ const scoreArr = inputArr.map(score => Number(score));
 const M = Math.max(...scoreArr);
 let SUM = 0;
 
-for(let idx = 0; idx < scoreArr.length; idx++) {
+for (let idx = 0; idx < scoreArr.length; idx++) {
     SUM += scoreArr[idx] / M * 100;
 }
 
