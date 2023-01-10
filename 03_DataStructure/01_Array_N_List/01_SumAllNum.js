@@ -15,9 +15,9 @@ const lines = require('fs').readFileSync('/dev/stdin', 'utf8').split('\n');
 const numArr = lines[1].split('');
 let answer = 0;
 
-if(Number(lines[0]) !== numArr.length) return;
+if (Number(lines[0]) !== numArr.length) return;
 
-for(const num of numArr) {
+for (const num of numArr) {
     answer += Number(num);
 }
 
