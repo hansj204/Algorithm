@@ -1,4 +1,5 @@
 // 11660
+/* */
 const lines = require('fs').readFileSync(`/dev/stdin`).toString().trim().split(`\n`);
 const [arrSize, questionCnt] = lines[0].trim().split(` `).map(Number);
 const answer = [];
