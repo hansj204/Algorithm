@@ -1,17 +1,4 @@
 // 11660
-/* 슈도코드
-    데이터 개수, 질의 개수 입력
-    구간합을 구할 대상 2차원 배열 입력
-    질의 입력
-    
-    FOR(질의 갯수) {
-        변수 sumArr에 합 배열 저장
-    }
-
-    FOR(질의 갯수) {
-        각 구간 합 출력
-    }
-*/
 const lines = require('fs').readFileSync(`/dev/stdin`).toString().trim().split(`\n`);
 const [arrSize, questionCnt] = lines[0].trim().split(` `).map(Number);
 const answer = [];

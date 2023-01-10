@@ -1,4 +1,4 @@
-// 10986
+// 11659
 const lines = require('fs').readFileSync(`/dev/stdin`).toString().trim().split(`\n`);
 
 const [N, M] = lines[0].trim().split(` `).map(Number);
