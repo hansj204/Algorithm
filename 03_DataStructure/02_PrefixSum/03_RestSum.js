@@ -5,12 +5,20 @@ const [N, M] = lines[0].trim().split(` `).map(Number);
 let answer = 0;
 
 const numArr = lines[1].trim().split(` `).map(Number);
-let sumArr = Array.from(Array(N).fill(0));
+const sumArr = Array.from(Array(N).fill(0));
+const mod = Array.from(Array(M).fill(0));
 
-for (let idx = 0; idx < N; idx++) {
-    sumArr[idx + 1] = sumArr[idx] + numArr[idx];
+for(let idx = 0; idx < N; idx++) {
+    sumArr[idx] = 0 === idx? numArr[idx] : sumArr[idx-1] + numArr[idx];
+
+    const rest = sumArr[idx] % M;
+    mod[rest]++;
+
+    if(0 === rest) answer++;
 }
 
-answer = sumArr.map(sum => sum % M).filter(rest => 0 === rest);
+for(let idx = 0; idx < M; idx++) {
+    answer += (mod[idx] * (mod[idx] - 1)) / 2;
+}
 
 console.log(answer)
