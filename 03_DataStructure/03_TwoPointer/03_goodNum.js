@@ -1,31 +1,31 @@
-// 1253
-const [N, numbers] = require('fs').readFileSync('/dev/stdin').toString().trim().split(`\n`);
-const numberList = numbers.split(` `).map(Number).sort();
+// 1253 => 틀림
+const [N, numbers] = require('fs').readFileSync(`/dev/stdin`).toString().trim().split(`\n`);
+const numberList = numbers.split(` `).map(Number).sort((a,b) => a - b);
 
 if(Number(N) !== numberList.length) return;
 
 let count = 0;
 
-for(const [idx, num] of numberList.entries()) {
-     let startIdx = 0, endIdx = Number(N) - 1;
+for(const [idx, findNum] of numberList.entries()) {
+     let startIdx = 0, endIdx = idx - 1;
 
      while(startIdx < endIdx) {
-          const sum = numberList[startIdx] + numberList[endIdx];
-          
-          if(num === sum) {
-              if(idx != startIdx && idx != endIdx) {
-                    count++;
-                    break;
-              } else if(startIdx === idx) {
-                    startIdx++;
-              } else if(endIdx === idx) {
-                    endIdx--;
-              }
-          } else if(num < sum) {
+          if(startIdx === idx) {
                startIdx++;
-          } else {
+          } else if(endIdx === idx) {
                endIdx--;
-          }
+          } else {
+               const sum = numberList[startIdx] + numberList[endIdx];
+
+               if(findNum > sum) {
+                    endIdx--;
+               } else if(findNum < sum) {
+                    startIdx++;
+               } else { 
+                    count++; 
+                    break; 
+               }
+          } 
      }
 }
 
