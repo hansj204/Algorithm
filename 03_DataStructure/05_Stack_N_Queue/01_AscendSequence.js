@@ -1,5 +1,6 @@
 //1874
-const lines = require('fs').readFileSync(`/dev/stdin`).toString().trim().split(`\n`).map(Number);
+const filePath = `linux` === process.platform ? `dev/stdin` : 'input.txt';
+const lines = require('fs').readFileSync(filePath).toString().trim().split(`\n`).map(Number);
 const A = lines.slice(1), stack = [];
 let number = 1, popNum = null, result = [];
 
