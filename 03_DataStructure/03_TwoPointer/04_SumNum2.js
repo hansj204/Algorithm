@@ -1,4 +1,4 @@
-//2003
+//2003 => 틀림
 const lines = require('fs').readFileSync(`/dev/stdin`).toString().trim().split(`\n`);
 const [N, M] = lines[0].split(` `).map(Number);
 const A = [...lines[1].split(` `).map(Number)];
