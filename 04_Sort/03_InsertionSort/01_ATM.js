@@ -5,6 +5,8 @@ const [N, numbers] = require('fs').readFileSync(filePath).toString().trim().spli
 const numArr = numbers.split(` `).map(Number).sort((a,b) => a - b);
 const sumArr = Array.from(Array(numArr.length).fill(0));
 
+if(N !== numbers.length) return;
+
 sumArr[0] = numArr[0];
 
 for (let idx = 1; idx < N; idx++) {
