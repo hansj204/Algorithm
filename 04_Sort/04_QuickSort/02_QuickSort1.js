@@ -1,61 +1,51 @@
-//24090
 const filePath = `linux` === process.platform ? `dev/stdin` : 'input.txt';
-const lines = require('fs').readFileSync(filePath).toString().trim().split(`\n`);
+const [NK, ...nums] = require('fs').readFileSync(filePath).toString().trim().split('\n');
 
-const [N, K] = lines[0].split(` `).map(Number);
-const numbers = lines[1].split(` `).map(Number);
+const [N, K] = NK.trim().split(' ').map(Number);
+const numbers = nums[0].trim().split(' ').map(Number);
+let cnt = 0;
 
-if(N !== numbers.length) return;
+quickSort(numbers);
 
-function quickSort(array, left, right) {
-  if (left >= right) return;
+if (K > cnt) console.log(-1);
 
-  const pivot = partition(array, left, right);
-  quickSort(array, left, pivot - 1);
-  quickSort(array, pivot + 1, right);
+function quickSort(numbers, start = 0, end = N - 1) {
+  if (start >= end) return;
+
+  const pivot = partition(numbers, start, end);
+  quickSort(numbers, start, pivot - 1);
+  quickSort(numbers, pivot + 1, end);
 }
 
-function swapElements(myList, index1, index2) {
-  const temp = myList[index1];
-  myList[index1] = myList[index2];
-  myList[index2] = temp;
-}
+function partition(numbers, start, end) {
+  let pivot = numbers[end];
+  let i = start - 1;
 
-const temp_list = [];
-
-function printFunction(tpl) {
-  if (tpl[0] >= tpl[1]) {
-    console.log(`${tpl[1]} ${tpl[0]}`);
-  } else {
-    console.log(`${tpl[0]} ${tpl[1]}`);
-  }
-}
-
-function partition(list, p, r) {
-  const pivot = list[r];
-  let i = p - 1;
-  
-  for (let j = p; j < r; j++) {
-    if (list[j] <= pivot) {
+  for (let j = start; j < end; j++) {
+    if (numbers[j] <= pivot) {
       i++;
-      swapElements(list, i, j);
-      temp_list.push([list[i], list[j]]);
-    } else {
-      temp_list.push(-1);
+      [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+      cnt++;
+
+      console.log(i, j)
+
+      if (cnt === K) {
+        console.log(`${numbers[i]} ${numbers[j]}`);
+        process.exit(0);
+      }
     }
   }
 
-  if (i+1 !== r) {
-    swapElements(list, i+1, r);
-    temp_list.push([list[i+1], list[r]]);
+  if (i + 1 !== end) {
+    [numbers[i + 1], numbers[end]] = [numbers[end], numbers[i + 1]];
+
+    cnt++;
+    if (cnt === K) {
+      console.log(`${numbers[i + 1]} ${numbers[end]}`); 
+      process.exit(0);
+    }
   }
 
-  return i+1;
+  return i + 1;
 }
 
-if (N < K) {
-  console.log(-1);
-} else {
-  quickSort(numbers, 0, numbers.length - 1);
-  printFunction(temp_list[K-1]);
-}

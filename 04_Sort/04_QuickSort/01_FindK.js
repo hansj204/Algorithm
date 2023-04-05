@@ -7,36 +7,49 @@ const numbers = lines[1].split(` `).map(Number);
 
 if(N !== numbers.length) return;
 
-function quickSort (array, left = 0, right = array.length - 1) {
-    if (left >= right) return;
-   
-    const mid = Math.floor((left + right) / 2);
-    const pivot = array[mid];
-    const partition = divide(array, left, right, pivot);
-
-    quickSort(array, left, partition - 1);
-    quickSort(array, partition, right);
-   
-    function divide (array, left, right, pivot) {
-      while (left <= right) {
-        while (array[left] < pivot) left++;
-       
-        while (array[right] > pivot) right--;
-        
-        if (left <= right) {
-          let swap = array[left];
-          array[left] = array[right];
-          array[right] = swap;
-          left++;
-          right--;
-        }
-      }
-      return left;
-    }
-   
-    return array;
-}
-
 quickSort(numbers);
 
 console.log(numbers[K - 1])
+
+function quickSort (array, start = 0, end = array.length - 1) {
+    if (start >= end) return;
+   
+    const pivot = partition(array, start, end);
+
+    if(pivot === K - 1) return;
+    else if(pivot < K - 1) quickSort(array, start, pivot - 1);
+    else if(pivot < K - 1) quickSort(array, pivot + 1, end);
+}
+
+function partition (array, start, end) {
+  if(start + 1 == end) {
+    if(array[start] > array[end]) {
+      swap(array, start, end);  
+      return end;
+    }    
+  }
+
+  const mid = Math.floor((start + end) / 2);
+  swap(array, start, mid);
+
+  const pivot = array[start];
+  let left = start + 1, right = end;
+  
+  while (left <= right) {    
+    while (array[right] > pivot && right > 0) right--;
+    while (array[left] < pivot && left < array.length - 1) left++;
+
+    if (left <= right) {
+      swap(array, left++, right--);
+    }
+  }
+
+  array[start] = array[right];
+  array[right] = pivot;
+
+  return right;
+}
+
+function swap(array, left, right) {
+  [array[right], array[left]] =   [array[left], array[right]];
+}
