@@ -1,37 +1,33 @@
 // 24054
 const filePath = `linux` === process.platform ? `dev/stdin` : 'input.txt';
 const lines = require('fs').readFileSync(filePath).toString().trim().split(`\n`);
-
 const [N, K] = lines[0].split(` `).map(Number);
 let numbers = lines[1].split(` `).map(Number);
-let insertCnt = 0;
+let insertCnt = 0, i = 1, j, target;
 
-outer: for (let i = 1; i < N; i++) {
-  let target = numbers[i];
-  let j = i - 1;
-	
-  while(j >= 0 && target < numbers[j]) {
-    if(stopInsert(numbers[j])) break outer;
+for (i = 1; i < N; i++) {
+  target = numbers[i];
 
+  for (j = i - 1; j >= 0 && target < numbers[j]; j--) {
     numbers[j + 1] = numbers[j];
-    j--;
+    ++insertCnt;
+
+    if (insertCnt === K) {
+      console.log(numbers[j]);
+      return;
+    }
   }
 
-  if(stopInsert(target)) break outer;
-
+  if(j === i - 1) continue;
+    
   numbers[j + 1] = target;
+
+  ++insertCnt;
+  
+  if (insertCnt === K) {
+    console.log(target);
+    return;
+  }
 }
 
-function stopInsert(val) {
-  const isContinue = insertCnt <= K;
-
-  if(isContinue) console.log(val) 
-
-  if(insertCnt < K)  insertCnt++; 
-
-  return isContinue;
-}
-
-console.log(K, insertCnt)
-
-if(K > insertCnt)   console.log(-1);
+if(K > insertCnt) console.log(-1);

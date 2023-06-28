@@ -1,3 +1,4 @@
+//24090
 const filePath = `linux` === process.platform ? `dev/stdin` : 'input.txt';
 const [NK, ...nums] = require('fs').readFileSync(filePath).toString().trim().split('\n');
 
@@ -24,10 +25,10 @@ function partition(numbers, start, end) {
   for (let j = start; j < end; j++) {
     if (numbers[j] <= pivot) {
       i++;
+      // swap
       [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
-      cnt++;
 
-      console.log(i, j)
+      cnt++;
 
       if (cnt === K) {
         console.log(`${numbers[i]} ${numbers[j]}`);
